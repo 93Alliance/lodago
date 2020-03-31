@@ -8,8 +8,8 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-// StructToMap 利用反射将结构体转化为map
-func StructToMap(obj interface{}) map[string]interface{} {
+// Struct2Map 利用反射将结构体转化为map
+func Struct2Map(obj interface{}) map[string]interface{} {
 	obj1 := reflect.TypeOf(obj)
 	obj2 := reflect.ValueOf(obj)
 
@@ -21,7 +21,7 @@ func StructToMap(obj interface{}) map[string]interface{} {
 }
 
 // Map2Struct 将map对象转换成结构体
-func Map2Struct(mapValue map[string]interface{}, obj *interface{}) error {
+func Map2Struct(mapValue map[string]interface{}, obj interface{}) error {
 	//将 map 转换为指定的结构体
 	if err := mapstructure.Decode(mapValue, obj); err != nil {
 		return err
