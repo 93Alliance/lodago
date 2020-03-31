@@ -19,6 +19,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - JSON2Map - Converts the json to map
 - Concat - Concat multi slice
 - After - The function does not actually execute until it has been called n times
+- Remove - Remove a element in slice by index
 
 ## Demo
 
