@@ -18,6 +18,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - Map2JSON - Converts the map to json
 - JSON2Map - Converts the json to map
 - Concat - Concat multi slice
+- After - The function does not actually execute until it has been called n times
 
 ## Demo
 
@@ -361,4 +362,52 @@ slice2 origin:  [0 0 0 0 0 0 0 0 0 0]
 slice2 fill:    [7 7 7 7 7 7 7 7 7 7]
 slice3 origin:  [0 0 0 0 0 0 0 0 0 0]
 slice3 fill:    [0 0 0 8 8 8 8 8 8 8]
+```
+
+- **After**
+
+```
+func main() {
+	cf := lodago.After(3, func(idx int) {
+		fmt.Println("idx is ", idx)
+	}).(func(int))
+
+	cf(1)
+	cf(2)
+	cf(3)
+	cf(4)
+}
+```
+result
+
+```
+idx is  3
+idx is  4
+```
+
+or
+
+```
+func main() {
+	cf := lodago.After(3, func(idx int) (string, error) {
+		fmt.Println("idx is ", idx)
+		return "ok", errors.New("error")
+	}).(func(int) (string, error))
+
+	fmt.Println(cf(1))
+	fmt.Println(cf(2))
+	fmt.Println(cf(3))
+	fmt.Println(cf(4))
+}
+```
+
+result
+
+```
+ <nil>
+ <nil>
+idx is  3
+ok error
+idx is  4
+ok error
 ```
