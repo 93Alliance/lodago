@@ -17,6 +17,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - Map2Struct - Converts the map to struct
 - Map2JSON - Converts the map to json
 - JSON2Map - Converts the json to map
+- Concat - Concat multi slice
 
 ## Demo
 
@@ -290,4 +291,39 @@ result
 
 ```
 map[id:1 name:peter]
+```
+
+- **Concat**
+
+```
+a1 := []int{1, 2, 3}
+a2 := []int{4, 5}
+a3 := []int{6}
+result := Concat(a1, a2, a3)
+fmt.Println(result)         // interface{} type
+fmt.Println(result.([]int)) // original type
+```
+result
+
+```
+[1 2 3 4 5 6]
+[1 2 3 4 5 6]
+```
+
+or
+
+```
+func main() {
+	a1 := []User{User{1, "u1"}, User{2, "u2"}, User{3, "u3"}}
+	a2 := []User{User{4, "u4"}, User{5, "u5"}}
+	a3 := []User{User{6, "u6"}}
+	result := Concat(a1, a2, a3)
+	fmt.Println(result)          // interface{} type
+	fmt.Println(result.([]User)) // original type
+}
+```
+result
+```
+[{1 u1} {2 u2} {3 u3} {4 u4} {5 u5} {6 u6}]
+[{1 u1} {2 u2} {3 u3} {4 u4} {5 u5} {6 u6}]
 ```

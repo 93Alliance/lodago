@@ -54,3 +54,33 @@ func Shuffle(arr interface{}) {
 		contentValue.Index(j).Set(reflect.ValueOf(x))
 	}
 }
+
+// Concat 拼接切片
+func Concat(arr1 interface{}, arr2 ...interface{}) interface{} {
+	resultType := reflect.TypeOf(arr1)
+	if resultType.Kind() != reflect.Slice {
+		panic("expects a slice type")
+	}
+	len := 0
+	arr1V := reflect.ValueOf(arr1)
+	arr1Len := arr1V.Len()
+	len += arr1Len
+	for _, s := range arr2 { // 获取切片的长度
+		rv := reflect.ValueOf(s)
+		len += rv.Len()
+	}
+	result := reflect.MakeSlice(resultType, len, len) // 提前开辟足够的容量
+	index := 0
+	for i := 0; i < arr1Len; i++ { // 拷贝被拼接的切片元素
+		result.Index(index).Set(arr1V.Index(i))
+		index++
+	}
+	for _, s := range arr2 {
+		rv := reflect.ValueOf(s)
+		for i := 0; i < rv.Len(); i++ {
+			result.Index(index).Set(rv.Index(i))
+			index++
+		}
+	}
+	return result.Interface()
+}
