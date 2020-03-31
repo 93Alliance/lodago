@@ -331,3 +331,34 @@ result
 [{1 u1} {2 u2} {3 u3} {4 u4} {5 u5} {6 u6}]
 [{1 u1} {2 u2} {3 u3} {4 u4} {5 u5} {6 u6}]
 ```
+
+- **Fill**
+
+```
+func main() {
+	var slice1 []int = make([]int, 10)
+	var slice2 []int = make([]int, 10)
+	var slice3 []int = make([]int, 10)
+	fmt.Println("slice1 origin: ", slice1)
+	lodago.Fill(slice1, 6, 0, 5)
+	fmt.Println("slice1 fill:   ", slice1)
+
+	fmt.Println("slice2 origin: ", slice2)
+	lodago.Fill(slice2, 7)
+	fmt.Println("slice2 fill:   ", slice2)
+
+	fmt.Println("slice3 origin: ", slice3)
+	lodago.Fill(slice3, 8, 3)
+	fmt.Println("slice3 fill:   ", slice3)
+}
+```
+result
+
+```
+slice1 origin:  [0 0 0 0 0 0 0 0 0 0]
+slice1 fill:    [6 6 6 6 6 0 0 0 0 0]
+slice2 origin:  [0 0 0 0 0 0 0 0 0 0]
+slice2 fill:    [7 7 7 7 7 7 7 7 7 7]
+slice3 origin:  [0 0 0 0 0 0 0 0 0 0]
+slice3 fill:    [0 0 0 8 8 8 8 8 8 8]
+```

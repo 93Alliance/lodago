@@ -84,3 +84,33 @@ func Concat(arr1 interface{}, arr2 ...interface{}) interface{} {
 	}
 	return result.Interface()
 }
+
+// Fill 填充切片
+func Fill(arr interface{}, value interface{}, options ...int) {
+	rt, rv := reflect.TypeOf(arr), reflect.ValueOf(arr)
+	valueType := reflect.TypeOf(value)
+	if rt.Kind() != reflect.Slice {
+		panic("expects a slice pointer")
+	}
+	if valueType.Kind() != rt.Elem().Kind() {
+		panic("expects fill value is " + rt.Elem().Name())
+	}
+	optionLen := len(options)
+	start, end, arrLen := 0, 0, rv.Len()
+	if optionLen >= 2 {
+		start, end = options[0], options[1]
+		if end > arrLen {
+			end = arrLen
+		}
+	} else if optionLen == 1 {
+		start, end = options[0], arrLen
+	} else {
+		end = arrLen
+	}
+	if start > arrLen-1 {
+		start = arrLen - 1
+	}
+	for i := start; i < end; i++ {
+		rv.Index(i).Set(reflect.ValueOf(value))
+	}
+}
