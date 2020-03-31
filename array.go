@@ -33,9 +33,8 @@ func Filter(arr interface{}, callback func(ele interface{}, index int) bool) (in
 	}
 	if newContent.Len() == 0 {
 		return newContent.Interface(), false
-	} else {
-		return newContent.Interface(), true
 	}
+	return newContent.Interface(), true
 }
 
 // Shuffle 打乱数组
