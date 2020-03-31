@@ -1,5 +1,7 @@
 # Lodago
 
+![](https://github.com/93Alliance/lodago/blob/master/image/logo.png?raw=true)
+
 It has the same goal as the lodash library, providing rich functions for golang.
 
 ## Function
