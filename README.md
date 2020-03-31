@@ -411,3 +411,38 @@ ok error
 idx is  4
 ok error
 ```
+
+- **Remove**
+
+```
+// User 测试
+type User struct {
+	ID   int
+	Name string
+}
+
+func main() {
+	a := []string{"A", "B", "C", "D", "E"}
+	lodago.Remove(&a, 1)
+	fmt.Println(a)
+	b := []int{1, 2, 3, 4, 5}
+	lodago.Remove(&b, 4)
+	fmt.Println(b)
+	c := []User{
+		User{1, "张三"},
+		User{2, "李四"},
+		User{3, "小芳"},
+		User{4, "二狗子"},
+	}
+	lodago.Remove(&c, 2)
+	fmt.Println(c)
+}
+```
+
+result
+
+```
+[A C D E]
+[1 2 3 4]
+[{1 张三} {2 李四} {4 二狗子}]
+```
