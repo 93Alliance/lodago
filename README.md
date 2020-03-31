@@ -299,7 +299,7 @@ map[id:1 name:peter]
 a1 := []int{1, 2, 3}
 a2 := []int{4, 5}
 a3 := []int{6}
-result := Concat(a1, a2, a3)
+result := lodago.Concat(a1, a2, a3)
 fmt.Println(result)         // interface{} type
 fmt.Println(result.([]int)) // original type
 ```
@@ -313,11 +313,15 @@ result
 or
 
 ```
+type User struct {
+	ID   int
+	Name string
+}
 func main() {
 	a1 := []User{User{1, "u1"}, User{2, "u2"}, User{3, "u3"}}
 	a2 := []User{User{4, "u4"}, User{5, "u5"}}
 	a3 := []User{User{6, "u6"}}
-	result := Concat(a1, a2, a3)
+	result := lodago.Concat(a1, a2, a3)
 	fmt.Println(result)          // interface{} type
 	fmt.Println(result.([]User)) // original type
 }
