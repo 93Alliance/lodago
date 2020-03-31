@@ -20,7 +20,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 
 ## Demo
 
-- UUID
+- **UUID**
 
 ```
 func main() {
@@ -34,7 +34,7 @@ result
 9de5f29c-b744-4b3e-b0c6-b5c1e3705510
 ```
 
-- Str2MD5
+- **Str2MD5**
 
 ```
 func main() {
@@ -49,7 +49,7 @@ result
 c06db68e819be6ec3d26c6038d8e8d1f
 ```
 
-- Find
+- **Find**
 
 ```
 type User struct {
@@ -81,7 +81,7 @@ result
 {2 李四}
 ```
 
-- Filter
+- **Filter**
 
 ```
 type User struct {
@@ -113,7 +113,7 @@ result
 [{1 张三} {3 赵四}]
 ```
 
-- Shuffle
+- **Shuffle**
 
 ```
 func main() {
@@ -131,7 +131,7 @@ result
 打乱后： [b c f a d e]
 ```
 
-- SelectFields
+- **SelectFields**
 
 ```
 type SearchResult struct {
@@ -160,7 +160,7 @@ result
 {"id":1,"name":"张三"}
 ```
 
-- DropFields
+- **DropFields**
 
 ```
 type SearchResult struct {
@@ -188,7 +188,7 @@ result
 {"date":"2020-03-30","id":1,"name":"张三"}
 ```
 
-- Struct2Map
+- **Struct2Map**
 
 ```
 type SearchResult struct {
@@ -216,7 +216,7 @@ result
 map[Date:2020-03-30 ID:1 Name:张三 Password:123456]
 ```
 
-- Map2Struct
+- **Map2Struct**
 
 ```
 type SearchResult struct {
@@ -247,7 +247,7 @@ result
 {2020-03-30 1 张三 123456}
 ```
 
-- Map2JSON
+- **Map2JSON**
 
 ```
 func main() {
@@ -268,7 +268,7 @@ result
 {"id":1,"name":"peter"}
 ```
 
-- JSON2Map
+- **JSON2Map**
 
 ```
 func main() {
