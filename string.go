@@ -1,8 +1,10 @@
 package lodago
 
 import (
+	"reflect"
 	"regexp"
 	"strings"
+	"unsafe"
 )
 
 // 这里是github.com/gookit/goutil/arrutil库内的实现，感谢作者。
@@ -69,4 +71,29 @@ func SnakeCase(s string, sep ...string) string {
 		return sepChar + LowerFirst(s)
 	})
 	return strings.TrimLeft(newStr, sepChar)
+}
+
+// String2Bytes 字符串转换byte切片 零拷贝
+func String2Bytes(s string) []byte {
+	stringHeader := (*reflect.StringHeader)(unsafe.Pointer(&s))
+
+	bh := reflect.SliceHeader{
+		Data: stringHeader.Data,
+		Len:  stringHeader.Len,
+		Cap:  stringHeader.Len,
+	}
+
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
+// Bytes2String byte切片转换字符串 零拷贝
+func Bytes2String(b []byte) string {
+	sliceHeader := (*reflect.SliceHeader)(unsafe.Pointer(&b))
+
+	sh := reflect.StringHeader{
+		Data: sliceHeader.Data,
+		Len:  sliceHeader.Len,
+	}
+
+	return *(*string)(unsafe.Pointer(&sh))
 }
