@@ -24,6 +24,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - UpperFirst - Upper first char
 - CamelCase - Converts string to camelCase, `group_id -> groupId`
 - SnakeCase - Converts string to SnakeCase, `GroupId -> group_id`
+- IsEqual - Same as `reflect.DeepEqual()` function
 
 ## Demo
 
