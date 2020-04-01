@@ -20,6 +20,10 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - Concat - Concat multi slice
 - After - The function does not actually execute until it has been called n times
 - Remove - Remove a element in slice by index
+- LowerFirst - Lower first char
+- UpperFirst - Upper first char
+- CamelCase - Converts string to camelCase, `group_id -> groupId`
+- SnakeCase - Converts string to SnakeCase, `GroupId -> group_id`
 
 ## Demo
 
