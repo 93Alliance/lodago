@@ -116,7 +116,7 @@ func Fill(arr interface{}, value interface{}, options ...int) {
 }
 
 // Remove 移除索引位置的元素
-func Remove(arr interface{}, index int) {
+func Remove(arr interface{}, index int, order ...bool) {
 	rt, rv := reflect.TypeOf(arr), reflect.ValueOf(arr)
 	if rt.Kind() != reflect.Ptr || rv.Elem().Kind() != reflect.Slice {
 		panic("expects a slice pointer")
@@ -126,8 +126,12 @@ func Remove(arr interface{}, index int) {
 	if index >= arrLen {
 		return
 	}
-	for i := index; i < arrLen-1; i++ {
-		rvPtr.Index(i).Set(rvPtr.Index(i + 1))
+	if len(order) > 0 && !order[0] { // 不保证顺序
+		rvPtr.Index(index).Set(rvPtr.Index(arrLen - 1))
+	} else { // 保证顺序
+		for i := index; i < arrLen-1; i++ {
+			rvPtr.Index(i).Set(rvPtr.Index(i + 1))
+		}
 	}
 	rvPtr.SetLen(arrLen - 1)
 }
