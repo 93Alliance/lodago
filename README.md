@@ -424,6 +424,54 @@ idx is  4
 ok error
 ```
 
+- **Before**
+
+```
+func main() {
+	cf := lodago.Before(3, func(idx int) {
+		fmt.Println("idx is ", idx)
+	}).(func(int))
+
+	cf(1)
+	cf(2)
+	cf(3)
+	cf(4)
+}
+```
+result
+
+```
+idx is  1
+idx is  2
+```
+
+or
+
+```
+func main() {
+	cf := lodago.Before(3, func(idx int) (string, error) {
+		fmt.Println("idx is ", idx)
+		return "ok", errors.New("error")
+	}).(func(int) (string, error))
+
+	fmt.Println(cf(1))
+	fmt.Println(cf(2))
+	fmt.Println(cf(3))
+	fmt.Println(cf(4))
+}
+```
+
+result
+
+```
+idx is  1
+ok error
+idx is  2
+ok error
+ <nil>
+ <nil>
+```
+
 - **Remove**
 
 ```
