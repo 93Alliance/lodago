@@ -27,6 +27,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - IsEqual - Same as `reflect.DeepEqual()` function
 - String2Bytes - Zero copy convert `string` to `[]byte`
 - Bytes2String - Zero copy convert `[]byte` to `string`
+- RandString - Random characters
 
 ## Demo
 
@@ -453,4 +454,18 @@ result
 [A C D E]
 [1 2 3 4]
 [{1 张三} {2 李四} {4 二狗子}]
+```
+
+- **RandString**
+
+```
+fmt.Println("64: ", RandString()) // default 64
+fmt.Println("96: ", RandString(96)) // generate 96 char
+```
+
+result
+
+```
+64:  GgvN9gz1IgESBgYQWtyrGkW4VgYQ9mdn139KnVs7YM04iKQb7mh9XuJ9Cyx6u8bU
+96:  G8gxJxg0sJggvwWqll7wV55BjcoAWIxJp4OFQ8kzE9vFO3G36Xu67cr3xCXmyjgmbikYp6DMt6rvQlgVWweA3Yh2S8jmIrVx
 ```
