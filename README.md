@@ -28,6 +28,9 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - String2Bytes - Zero copy convert `string` to `[]byte`
 - Bytes2String - Zero copy convert `[]byte` to `string`
 - RandString - Random characters
+- RandStrWithNum - Random generate string with number`[0-9]`
+- RandStrWithLower - Random generate string with lower case`[a-z]`
+- RandStrWithUpper - Random generate string with upper case`[A-Z]`
 
 ## Demo
 
@@ -459,8 +462,8 @@ result
 - **RandString**
 
 ```
-fmt.Println("64: ", RandString()) // default 64
-fmt.Println("96: ", RandString(96)) // generate 96 char
+fmt.Println("64: ", lodago.RandString()) // default 64
+fmt.Println("96: ", lodago.RandString(96)) // generate 96 char
 ```
 
 result
@@ -468,4 +471,22 @@ result
 ```
 64:  GgvN9gz1IgESBgYQWtyrGkW4VgYQ9mdn139KnVs7YM04iKQb7mh9XuJ9Cyx6u8bU
 96:  G8gxJxg0sJggvwWqll7wV55BjcoAWIxJp4OFQ8kzE9vFO3G36Xu67cr3xCXmyjgmbikYp6DMt6rvQlgVWweA3Yh2S8jmIrVx
+```
+
+- **RandStrWithNum**
+
+```
+func main() {
+	fmt.Println(lodago.RandStrWithNum(64))
+	fmt.Println(lodago.RandStrWithLower(64))
+	fmt.Println(lodago.RandStrWithUpper(64))
+}
+```
+
+result
+
+```
+9968498101165183260988712812608745823453372706940069839172999688
+mzkqmsuaatexepfmexthnrdcgnigomrnvvybwbqddifpcpziumrefjshngrtyqjk
+WSPQEMFMSCOSFRGXEEEEIJLSMUXINUDZHVULHXTMDXZPJDSVKEGTMWEWRUIPIBYN
 ```
