@@ -2,6 +2,15 @@ package lodago
 
 import "reflect"
 
+// IsFunc 是否为函数
+func IsFunc(fun interface{}) bool {
+	rt := reflect.TypeOf(fun)
+	if rt.Kind() != reflect.Func {
+		return false
+	}
+	return true
+}
+
 // After 在执行几次后才真正执行
 func After(n int, fun interface{}) interface{} {
 	rt := reflect.TypeOf(fun)
