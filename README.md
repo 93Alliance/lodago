@@ -31,6 +31,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - RandStrWithNum - Random generate string with number`[0-9]`
 - RandStrWithLower - Random generate string with lower case`[a-z]`
 - RandStrWithUpper - Random generate string with upper case`[A-Z]`
+- If - Ternary expression
 
 ## Demo
 
