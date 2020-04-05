@@ -34,6 +34,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - RandStrWithUpper - Random generate string with upper case`[A-Z]`
 - If - Ternary expression
 - Hash - Get hash value of string
+- multimap - A multi key-value map.
 
 ## Demo
 
