@@ -33,6 +33,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - RandStrWithLower - Random generate string with lower case`[a-z]`
 - RandStrWithUpper - Random generate string with upper case`[A-Z]`
 - If - Ternary expression
+- Hash - Get hash value of string
 
 ## Demo
 
@@ -539,4 +540,31 @@ result
 9968498101165183260988712812608745823453372706940069839172999688
 mzkqmsuaatexepfmexthnrdcgnigomrnvvybwbqddifpcpziumrefjshngrtyqjk
 WSPQEMFMSCOSFRGXEEEEIJLSMUXINUDZHVULHXTMDXZPJDSVKEGTMWEWRUIPIBYN
+```
+
+- **multimap**
+
+```
+func main() {
+	m := multimap.NewMultimap()
+	m.Insert("key1", 1)
+	m.Insert("key1", 1)
+	m.Insert("key1", 3)
+	m.Insert("key1", 4)
+	m.Insert("key1", 5)
+	fmt.Println(m.Size())
+	fmt.Println(m.At("key1"))
+	m.Remove("key1", 3)
+	fmt.Println(m.Size())
+	fmt.Println(m.At("key1"))
+}
+```
+
+result
+
+```
+5
+[1 1 3 4 5] true
+4
+[1 1 4 5] true
 ```
