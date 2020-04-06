@@ -64,6 +64,20 @@ func DropFields(v interface{}, fields ...string) ([]byte, error) {
 	return jsonStr, nil
 }
 
+// DropMapFields 针对map选择性字段
+func DropMapFields(m map[string]interface{}, keys ...string) (map[string]interface{}, error) {
+	fs := fieldSet(keys...)
+	if len(fs) == 0 {
+		return m, nil
+	}
+	for k := range m {
+		if fs[k] {
+			delete(m, k) // 删除元素
+		}
+	}
+	return m, nil
+}
+
 // 变参扩展
 func fieldSet(fields ...string) map[string]bool {
 	set := make(map[string]bool, len(fields))

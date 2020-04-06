@@ -35,7 +35,7 @@ func Map2JSON(mapValue map[string]interface{}) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(jsonStr), nil
+	return Bytes2String(jsonStr), nil
 }
 
 // JSON2Map json字符串转换成map容器

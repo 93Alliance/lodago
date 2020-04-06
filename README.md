@@ -35,6 +35,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - If - Ternary expression
 - Hash - Get hash value of string
 - Multimap - A multi key-value map.
+- DropMapFields - Output map based on the drop field
 
 ## Demo
 
