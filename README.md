@@ -36,6 +36,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - Hash - Get hash value of string
 - Multimap - A multi key-value map.
 - DropMapFields - Output map based on the drop field
+- Queue - A thread-safe queue.
 
 ## Demo
 
@@ -569,4 +570,51 @@ result
 [1 1 3 4 5] true
 4
 [1 1 4 5] true
+```
+
+- **Queue**
+
+```
+var q = lodago.NewQueue(1024*1024, time.Duration(10)*time.Microsecond)
+
+func putExample(data int) {
+	// if queue is full, Put will sleep and runtime.Gosched()
+	ok, _ := q.Put(data)
+	for !ok {
+		ok, _ = q.Put(data)
+	}
+}
+
+func getExample() int {
+	// if queue is empty, Get will sleep and runtime.Gosched()
+	val, ok, _ := q.Get()
+	for !ok {
+		val, ok, _ = q.Get()
+	}
+	return val.(int)
+}
+
+func main() {
+	putExample(1)
+	putExample(2)
+	putExample(3)
+	putExample(4)
+	putExample(5)
+	putExample(6)
+	fmt.Println(getExample())
+	fmt.Println(getExample())
+	fmt.Println(getExample())
+	fmt.Println(getExample())
+	fmt.Println(getExample())
+	fmt.Println(getExample())
+}
+```
+result
+```
+1
+2
+3
+4
+5
+6
 ```
