@@ -208,7 +208,7 @@ func (c *CronTime) ToSpec() (string, error) {
 // 判断一些字符串是否都是整数
 func (c *CronTime) isNums(strs ...string) bool {
 	for _, str := range strs {
-		if IsNum(str) {
+		if !IsNum(str) {
 			return false
 		}
 	}
