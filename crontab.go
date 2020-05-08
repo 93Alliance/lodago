@@ -156,54 +156,64 @@ type CronTime struct {
 func (c *CronTime) ToSpec() (string, error) {
 	switch c.Type {
 	case Yearly:
-		if !IsNum(c.Month) || !IsNum(c.Day) ||
-			!IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Month, c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s %s %s *", c.Minute, c.Hour, c.Day, c.Month), nil
 	case Monthly:
-		if !IsNum(c.Day) || !IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !tools.IsNum(c.Day) || !tools.IsNum(c.Hour) || !tools.IsNum(c.Minute) {
+			return "", errors.New("Time format is error")
+		}
+		if !c.isNums(c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s %s * *", c.Minute, c.Hour, c.Day), nil
 	case Weekly:
-		if !IsNum(c.Week) || !IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Week, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s * * %s", c.Minute, c.Hour, c.Week), nil
 	case Daily:
-		if !IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s * * *", c.Minute, c.Hour), nil
 	case Hourly:
-		if !IsNum(c.Minute) {
+		if !c.isNums(c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s * * * *", c.Minute), nil
 	case IntervalMonth:
-		if !IsNum(c.Month) || !IsNum(c.Day) ||
-			!IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Month, c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s %s */%s *", c.Minute, c.Hour, c.Day, c.Month), nil
 	case IntervalDay:
-		if !IsNum(c.Day) || !IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s */%s * *", c.Minute, c.Hour, c.Day), nil
 	case Every:
-		if !IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("@every %sh%sm", c.Minute, c.Hour), nil
 	case Once:
-		if !IsNum(c.Year) || !IsNum(c.Month) || !IsNum(c.Day) ||
-			!IsNum(c.Hour) || !IsNum(c.Minute) {
+		if !c.isNums(c.Year, c.Month, c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
 		return fmt.Sprintf("%s %s %s %s *", c.Minute, c.Hour, c.Day, c.Month), nil
 	default:
 		return "", errors.New("Schedule type is error")
 	}
+}
+
+// 判断一些字符串是否都是整数
+func (c *CronTime) isNums(strs ...string) bool {
+	for _, str := range strs {
+		if IsNum(str) {
+			return false
+		}
+	}
+	return true
 }
