@@ -161,9 +161,6 @@ func (c *CronTime) ToSpec() (string, error) {
 		}
 		return fmt.Sprintf("%s %s %s %s *", c.Minute, c.Hour, c.Day, c.Month), nil
 	case Monthly:
-		if !tools.IsNum(c.Day) || !tools.IsNum(c.Hour) || !tools.IsNum(c.Minute) {
-			return "", errors.New("Time format is error")
-		}
 		if !c.isNums(c.Day, c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
