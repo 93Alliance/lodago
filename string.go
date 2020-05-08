@@ -3,6 +3,7 @@ package lodago
 import (
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"unsafe"
 )
@@ -96,4 +97,10 @@ func Bytes2String(b []byte) string {
 	}
 
 	return *(*string)(unsafe.Pointer(&sh))
+}
+
+// IsNum 判断字符串是不是整数
+func IsNum(s string) bool {
+	_, err := strconv.Atoi(s)
+	return err == nil
 }

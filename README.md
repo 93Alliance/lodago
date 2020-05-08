@@ -37,6 +37,7 @@ It has the same goal as the lodash library, providing rich functions for golang.
 - Multimap - A multi key-value map.
 - DropMapFields - Output map based on the drop field
 - Queue - A thread-safe queue.
+- Crontab - A cron library for go.
 
 ## Demo
 
@@ -617,4 +618,10 @@ result
 4
 5
 6
+```
+
+- **Crontab**
+
+```
+
 ```
