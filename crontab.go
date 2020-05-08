@@ -66,8 +66,12 @@ func (c *Crontab) AddJob(cronTime *CronTime, job Job) (cron.EntryID, error) {
 	}
 	cronTime.Key = RandString(12) // 12位的随机数字+大小写字母
 	id, err := c.cron.AddFunc(spec, c.jobDecorate(*cronTime, job))
+	if err != nil {
+		c.RemoveJob(id)
+		return 0, err
+	}
 	c.setEntryID(cronTime.Key, id)
-	return id, err
+	return id, nil
 }
 
 // RemoveJob 删除一个任务
