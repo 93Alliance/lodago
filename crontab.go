@@ -192,7 +192,7 @@ func (c *CronTime) ToSpec() (string, error) {
 		if !c.isNums(c.Hour, c.Minute) {
 			return "", errors.New("Time format is error")
 		}
-		return fmt.Sprintf("@every %sh%sm", c.Minute, c.Hour), nil
+		return fmt.Sprintf("@every %sh%sm", c.Hour, c.Minute), nil
 	case Once:
 		if !c.isNums(c.Year, c.Month, c.Day, c.Hour, c.Minute) || c.isEver() {
 			return "", errors.New("Time format is error")
