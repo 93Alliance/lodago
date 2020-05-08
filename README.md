@@ -623,5 +623,27 @@ result
 - **Crontab**
 
 ```
+c := lodago.NewCrontab()
+go c.Start()
+defer c.Stop()
 
+t := lodago.CronTime{
+	lodago.Once,
+	"2020",
+	"5",
+	"8",
+	"14",
+	"19",
+	"",
+	"",
+}
+job1 := func() {
+	fmt.Println("一次性任务")
+}
+c.AddJob(&t, job1)
+
+for {
+	time.Sleep(time.Duration(1 * time.Second))
+	fmt.Println(c.GetEntries())
+}
 ```
