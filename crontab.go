@@ -84,18 +84,12 @@ func (c *Crontab) GetEntries() []cron.Entry {
 func (c *Crontab) jobDecorate(cronTime CronTime, job Job) Job {
 	if cronTime.Type == Once { // 一次性事件单独处理
 		return func() {
-			// 由于可能在获取此时间的时候和真正调用此函数的时间有误差，所以这里不采用直接比较的方式，而是采用
-			// 差值判断方式。
-			t1 := time.Now()
-			// 下面的转换之所以忽略错误，是因为在添加任务时已经做了验证。
-			year, _ := strconv.Atoi(cronTime.Year)
-			month, _ := strconv.Atoi(cronTime.Month)
-			day, _ := strconv.Atoi(cronTime.Day)
-			hour, _ := strconv.Atoi(cronTime.Hour)
-			minute, _ := strconv.Atoi(cronTime.Minute)
-			t2 := time.Date(year, time.Month(month), day, hour, minute, 0, 0, time.Local)
-			sub := t1.Sub(t2)
-			if sub.Seconds() <= 60 { // 如果相差60秒（涵盖）以内，那么说明可以执行该一次性事件。
+			// 假如当前时间是2020年3月12日12时23分，设定了一个2021年4月15日2时3分的任务，那么
+			// 在2020年4月15日2时3分会执行这个函数，也就是t1时间，但是由于执行需要时间，导致t1会
+			// 略比这个时间大，那么t1-t2就是一个负值，而当真正到了2021年4月15日2时3分，t1-t2应该
+			// 是一个正值，所以得出结论：
+			//  【时间差为正数代表需要执行，负数为不执行】
+			if cronTime.isEver() {
 				job() // 原先任务正常执行
 				id, ok := c.getEntryID(cronTime.Key)
 				if ok {
@@ -213,4 +207,20 @@ func (c *CronTime) isNums(strs ...string) bool {
 		}
 	}
 	return true
+}
+
+// 判断时间是否已经过去，例如 CronTime 中的时间比现在的时间要早
+func (c *CronTime) isEver() bool {
+	t1 := time.Now()
+	year, _ := strconv.Atoi(c.Year)
+	month, _ := strconv.Atoi(c.Month)
+	day, _ := strconv.Atoi(c.Day)
+	hour, _ := strconv.Atoi(c.Hour)
+	minute, _ := strconv.Atoi(c.Minute)
+	t2 := time.Date(year, time.Month(month), day, hour, minute, 0, 0, time.Local)
+	sub := t1.Sub(t2)
+	if sub.Seconds() >= 0 {
+		return true
+	}
+	return false
 }
