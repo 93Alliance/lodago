@@ -59,7 +59,7 @@ func (c *Crontab) Stop() {
 }
 
 // AddJob 添加任务，返回值是job id，可以用于删除任务
-func (c *Crontab) AddJob(cronTime *CronTime, job Job) (int, error) {
+func (c *Crontab) AddJob(cronTime *CronTime, job Job) (cron.EntryID, error) {
 	spec, err := cronTime.ToSpec()
 	if err != nil {
 		return 0, err
@@ -67,12 +67,17 @@ func (c *Crontab) AddJob(cronTime *CronTime, job Job) (int, error) {
 	cronTime.Key = RandString(12) // 12位的随机数字+大小写字母
 	id, err := c.cron.AddFunc(spec, c.jobDecorate(*cronTime, job))
 	c.setEntryID(cronTime.Key, id)
-	return int(id), err
+	return id, err
 }
 
 // RemoveJob 删除一个任务
 func (c *Crontab) RemoveJob(id cron.EntryID) {
 	c.cron.Remove(id)
+}
+
+// GetEntries 获得所有实体
+func (c *Crontab) GetEntries() []cron.Entry {
+	return c.cron.Entries()
 }
 
 // jobDecorate Job任务装饰器，主要用于解决周期性和一次性任务的执行逻辑不一样。
