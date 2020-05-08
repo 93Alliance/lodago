@@ -35,7 +35,7 @@ type Job func()
 // Crontab 定时任务调度器
 type Crontab struct {
 	cron     *cron.Cron
-	EntryIDs map[string]cron.EntryID
+	entryIDs map[string]cron.EntryID
 	locker   sync.RWMutex
 }
 
@@ -111,14 +111,14 @@ func (c *Crontab) jobDecorate(cronTime CronTime, job Job) Job {
 // 设置id
 func (c *Crontab) setEntryID(key string, id cron.EntryID) {
 	c.locker.Lock()
-	c.EntryIDs[key] = id
+	c.entryIDs[key] = id
 	c.locker.Unlock()
 }
 
 // 移除id
 func (c *Crontab) rmEntryID(key string) {
 	c.locker.Lock()
-	delete(c.EntryIDs, key)
+	delete(c.entryIDs, key)
 	c.locker.Unlock()
 }
 
@@ -126,7 +126,7 @@ func (c *Crontab) rmEntryID(key string) {
 func (c *Crontab) getEntryID(key string) (cron.EntryID, bool) {
 	c.locker.RLock()
 	defer c.locker.RUnlock()
-	id, ok := c.EntryIDs[key]
+	id, ok := c.entryIDs[key]
 	return id, ok
 }
 
