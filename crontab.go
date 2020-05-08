@@ -39,13 +39,23 @@ type Crontab struct {
 	locker   sync.RWMutex
 }
 
-// StartCrontab 启动定时器
-func StartCrontab() *Crontab {
+// NewCrontab 创建定时器
+func NewCrontab() *Crontab {
 	return &Crontab{
 		cron.New(),
 		make(map[string]cron.EntryID),
 		sync.RWMutex{},
 	}
+}
+
+// Start 启动
+func (c *Crontab) Start() {
+	c.cron.Start()
+}
+
+// Stop 停止
+func (c *Crontab) Stop() {
+	c.cron.Stop()
 }
 
 // AddJob 添加任务，返回值是job id，可以用于删除任务
